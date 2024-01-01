@@ -235,3 +235,24 @@ input{
 .linksJoin {
   text-align: center;
 }
+
+
+
+/* Style the footer */
+.footer {
+    background-color: #333; /* Set background color */
+    color: #fff; /* Set text color */
+    padding: 20px 0; /* Add padding to the top and bottom */
+    text-align: center; /* Center-align text */
+}
+
+/* Style the heading within the footer */
+.footer h1 {
+    font-size: 24px; /* Set font size for the heading */
+    margin-bottom: 10px; /* Add space below the heading */
+}
+
+/* Style the additional information paragraph */
+.footer p {
+    font-size: 14px; /* Set font size for the paragraph */
+}
