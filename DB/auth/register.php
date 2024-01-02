@@ -3,7 +3,6 @@
 	 *conect to DB and Register User
 	 *
 	*/
-	
 	ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
@@ -15,14 +14,9 @@
     	$password = isset($_POST['password']) ? $_POST['password'] : "";
     	$confirmPassword = isset($_POST['confirmPassword']) ? $_POST['confirmPassword'] : "";
 
-    	echo "$email</br>";
-    	echo "$password </br>";
-    	echo "$confirmPassword </br>" ;
-
-
-    	if (strlen($password) < 8 || $password !== $confirmPassword) {
-    		echo "Invalid password !";
-    		exit();
+       	if (strlen($password) < 8 || $password !== $confirmPassword) {
+    		$response['status'] = 'Error';
+    		$response['message'] = 'Invalid password!';
     	}
 
     	$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -38,14 +32,19 @@
     		$stmtUserDetails = $pdo->prepare("INSERT INTO UserDetails(email, userId) VALUE(?, ?)");
     		$stmtUserDetails->execute([$email, $userId]);
 
+    		$response['status'] = 'success';
+            $response['message'] = 'Registration successful. You can now log in.';
     	} catch (PDOException $e) {
 
-    		echo "Error: ".$e->getMessage();
+    		$response['status'] = 'error';
+    		$response['message'] = 'Error :'.$e->getMessage();
+    		/*echo "Error: ".$e->getMessage();*/
     		
     	}
     }else{
-    	echo "No data Received !!!!!";
+    	$response['status'] = 'error';
+    	$response['message'] = 'No data Received !!!!!';
+    	/*echo "No data Received !!!!!";*/
     }
- 
-    echo "Kenya is good";
+    echo json_encode($response);
 ?>
