@@ -2,35 +2,11 @@
 /**
  * Creating a database class
  */
-class DbConnection
-{
-    private $con;
+    require '../utilities/conn.php';
 
-    public function __construct($serverName, $dbName, $userName, $password)
-    {
-        try {
-            $this->con = new PDO("mysql:host=$serverName;dbname=$dbName", $userName, $password);
-            $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (Exception $e) {
-            echo "Connection failed: " . $e->getMessage();
-        }
+    $dbConnection = new DbConnection("localhost", "testroot", "root", "");
+    if ($dbConnection->isConnected()) {
+        $pdo = $dbConnection->getConnection();
+        
     }
-
-    public function getConnection()
-    {
-        return $this->con;
-    }
-
-    public function isConnected()
-    {
-        return $this->con !== null;
-    }
-}
-
-// Example usage:
-// $dbConnection = new DbConnection("localhost", "testroot", "root", "");
-// if ($dbConnection->isConnected()) {
-//     $pdo = $dbConnection->getConnection();
-//     // Perform operations with $pdo
-// }
 ?>

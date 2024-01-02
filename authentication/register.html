@@ -19,7 +19,7 @@
 	<div class="container">
 		<div class="PaceCenter">
 			<div class="form-container">
-				<form action="" method="">
+				<form action="../DB/auth/register.php" method="POST" onsubmit="validateForm()">
 					<div class="mb-3">
 						<label for="email" class="form-label" >E-mail:</label>
 						<input type="email" name="email" class="form-control" id="email" placeholder="E-mail" required>				
@@ -29,8 +29,8 @@
 						<input type="password" class="form-control" name="password" id="password" placeholder="password"required>
 					</div>
 					<div class="mb-3">
-						<label for="password" class="form-label">Password :</label>
-						<input type="password" class="form-control" name="password" id="password" placeholder="password"required>
+						<label for="confirmPassword" class="form-label"> Confirm Password :</label>
+						<input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="password"required>
 					</div>
 					<input class="btn btn-primary" type="submit" name="submit">
 				</form>
