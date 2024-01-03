@@ -12,18 +12,27 @@ function validateForm() {
 
     return true;
 }
-function handleResponse(){
-    if (response.status ==='success') {
+
+function handleResponse(response) {
+    if (response.status === 'success') {
         alert(response.message);
     } else {
         alert(response.message);
     }
 }
 
-fetch('register.php'{
-    method: 'POST',
-    body: new FormData(document.getElementById(''))
-})
-.then(response => response.json())
-.then(data => response.handleResponse(data))
-.catch(error => console.error('Error: ', error));
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (validateForm()) {
+            fetch('register.php', {
+                method: 'POST',
+                body: new FormData(form),
+            })
+                .then(response => response.json())
+                .then(data => handleResponse(data))
+                .catch(error => console.error('Error: ', error));
+        }
+    });
+});
