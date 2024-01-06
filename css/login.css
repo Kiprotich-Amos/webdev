@@ -235,9 +235,6 @@ input{
 .linksJoin {
   text-align: center;
 }
-
-
-
 /* Style the footer */
 .footer {
     background-color: #333; /* Set background color */
@@ -256,3 +253,4 @@ input{
 .footer p {
     font-size: 14px; /* Set font size for the paragraph */
 }
+/*  */
