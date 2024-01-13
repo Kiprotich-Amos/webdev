@@ -46,4 +46,15 @@ CREATE TABLE `PasswordTable`(
     PRIMARY KEY(orderId),
     UNIQUE KEY UC_Price(priceId),
     CONSTRAINT FK_Price FOREIGN KEY (priceId) REFERENCES Price(priceId)
+);CREATE TABLE `Shop`(
+    shopId Int NOT NULL AUTO_INCREMENT,
+    shopName VARCHAR(255),
+    shopRegistration VARCHAR(255),
+    shopLicenceNo VARCHAR(255),
+    shopLicenceDate date(),
+    shopLocation VARCHAR(255),
+    ShopStreet VARCHAR(255),
+    shopAddress VARCHAR(255),
+    shopContact VARCHAR(255)
 );
+
