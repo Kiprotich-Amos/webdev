@@ -2,7 +2,7 @@
 	/*
 		*
 		*
-		*Login php file...
+		* Login php file...
 		*
 		*
 	*/
@@ -16,42 +16,33 @@
 		$email = isset($_POST['email']) ? $_POST['email'] : "";
 		$password = isset($_POST['password']) ? $_POST['password'] : "";
 
-		// echo "your email is '{$email}' and your password is '{$password}'";
 		try {
+			
+			if (empty($email) || empty($password)) {
+				throw new Exception("Email and password are required.");
+			}else{
+				$stmtUserDetails = $pdo->prepare("SELECT UserDetails.*, PasswordTable.password  FROM UserDetails JOIN PasswordTable ON UserDetails.userId = PasswordTable.userId  WHERE UserDetails.email = ?");
+				$stmtUserDetails->execute([$email]);
 
-			$stmtUserDetails = $pdo->prepare("SELECT * FROM UserDetails WHERE email = ?");
-			$stmtUserDetails->execute([$email]);
+				$userDetails = $stmtUserDetails->fetch(PDO::FETCH_ASSOC);
+				// echo {$userDetails};
+				if ($userDetails) {
+					$storedHashPassword = $userDetails['password'];
 
-			$userDetails = $stmtUserDetails->fetch(PDO::FETCH_ASSOC);
-
-			if ($userDetails) {
-				$userId = $userDetails['userId'];
-
-				// Verify password
-				$stmtPassword = $pdo->prepare("SELECT * FROM PasswordTable WHERE userId = ?");
-				$stmtPassword->execute([$userId]);
-
-				$passwordDetails = $stmtPassword->fetch(PDO::FETCH_ASSOC);
-
-				if ($passwordDetails && isset($passwordDetails['password'])) {
-					$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-					if (password_verify($password, $passwordDetails['password'])) {
+					if (password_verify($password, $storedHashPassword)) {
 						echo "Login successful!";
 					} else {
-						echo "Incorrect password! (Hashed: $hashedPassword, Stored: {$passwordDetails['password']})";
+						echo "Incorrect password!";
 					}
-				} else {
-					echo "Password not found!";
+				}else {
+				    echo "No user details found for the specified email.";
 				}
-			} else {
-				echo "User not found!";
-			}
 
+			}
 		} catch (Exception $e) {
 			echo "Disaster happened: " . $e->getMessage();
 		}
 	} else {
-		echo "Login Process failed!!!!";
+		echo "Form not submitted!";
 	}
 ?>
